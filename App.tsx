@@ -6,7 +6,6 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
-import { NavigationContainer } from '@react-navigation/native';
 
 import {
   useFonts,
@@ -15,8 +14,10 @@ import {
   Poppins_700Bold
 } from '@expo-google-fonts/poppins';
 
+
+import { Routes } from './src/routes';
 import theme from './src/global/styles/theme';
-import { AppRoutes } from './src/routes/app.routes';
+import { AuthProvider, useAuth } from './src/hooks/auths';
 
 
 export default function App() {
@@ -25,16 +26,18 @@ export default function App() {
     Poppins_500Medium,
     Poppins_700Bold
   });
+
+  const { userStorageLoading } = useAuth();
   // Enquando não carregar as fontes segura a tela de splash e não carrega o app. Ussa o expo-app-loading.
-  if(!fontsLoaded){
+  if(!fontsLoaded || userStorageLoading){
     return <AppLoading />
   }
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <StatusBar barStyle="light-content" />
-        <AppRoutes />
-      </NavigationContainer>
+      <StatusBar barStyle="light-content" />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
     
   );

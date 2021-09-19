@@ -10,6 +10,8 @@ import { addMonths, subMonths, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 import { HistoryCard } from '../../components/HistoryCard';
+import { categories } from '../../utils/categories';
+import { useAuth } from '../../hooks/auths';
 import { 
   Container,
   Header,
@@ -22,7 +24,7 @@ import {
   Month,
   LoadContainer,
 } from './styles'
-import { categories } from '../../utils/categories';
+
 
 
 interface TransactionData {
@@ -46,7 +48,9 @@ export function Resume() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [totalBycategories, setTotalByCategories] = useState<CategoryData[]>([]);
+  
   const theme = useTheme();
+  const { user } = useAuth();
 
   function handleDateChange(action: 'next' | 'prev') {
     if(action === 'next') {
@@ -58,7 +62,7 @@ export function Resume() {
 
   async function loadData() {
     setIsLoading(true);
-    const dataKey = '@gofinace:transactions';
+    const dataKey = `@gofinace:transactions_user:${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
     const dataFormatted = response ? JSON.parse(response) : [];
    

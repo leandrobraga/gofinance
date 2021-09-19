@@ -17,6 +17,7 @@ import { TransactionTypeButton } from '../../components/Form/TransactionTypeButt
 import { CategorySelectButton } from '../../components/Form/CategorySelectButton';
 import { CategorySelect } from '../CategorySelect';
 import { useNavigation } from '@react-navigation/core';
+import { useAuth } from '../../hooks/auths';
 
 import { 
   Container,
@@ -26,6 +27,7 @@ import {
   Fields,
   TransactionsTypes
 } from './styles';
+
 
 interface FormData {
   name: string;
@@ -44,7 +46,9 @@ const schema = Yup.object().shape({
 });
 
 export function Register() {
-  const dataKey = '@gofinace:transactions';
+  const { user } = useAuth();
+
+  const dataKey = `@gofinace:transactions_user:${user.id}`;
 
   const [transcationType, setTransactionType] = useState('');
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
