@@ -4,7 +4,9 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "web": "expo start --web",
-    "start": "react-native start"
+    "start": "react-native start",
+    "test": "jest",
+    "text_watch": "yarn test --watchAll"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.0",
@@ -44,9 +46,15 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@testing-library/jest-native": "^4.0.2",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/react-native": "^7.2.0",
+    "@types/jest": "^27.0.2",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
     "@types/styled-components-react-native": "^5.1.1",
+    "jest-expo": "^42.1.0",
+    "jest-styled-components": "^7.0.5",
     "react-native-svg-transformer": "^0.14.3",
     "typescript": "~4.0.0"
   },

@@ -16,7 +16,7 @@ import { Button } from '../../components/Form/Button';
 import { TransactionTypeButton } from '../../components/Form/TransactionTypeButton';
 import { CategorySelectButton } from '../../components/Form/CategorySelectButton';
 import { CategorySelect } from '../CategorySelect';
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auths';
 
 import { 
@@ -57,7 +57,7 @@ export function Register() {
     name: 'Categoria',
   });
 
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const { control, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
@@ -108,7 +108,7 @@ export function Register() {
         name: 'Categoria',
       });
       reset();
-      navigation.navigate('Listagem');
+      // navigation.navigate('Listagem');
     } catch(error) {
       console.log(error);
       Alert.alert("Não foi possível salvar.");
@@ -153,19 +153,20 @@ export function Register() {
               />
             </TransactionsTypes>
             
-            <CategorySelectButton 
+            <CategorySelectButton
+              testID="button-category"
               title={category.name}
               onPress={handleOpenSelectCategoryModal}
             />
           </Fields>
           
-          <Button 
+          <Button
             title="Enviar"
             onPress={handleSubmit(handleRegister)}
           />
         </Form>
         
-        <Modal visible={categoryModalOpen}>
+        <Modal testID="modal-category" visible={categoryModalOpen}>
           <CategorySelect
             category={category}
             setCategory={setCategory}
